@@ -1,0 +1,169 @@
+# start, middle and end of growth
+
+# Start
+year_2013 <- as.Date(c("2013-01-01", "2013-02-01", "2013-03-01","2013-04-01", "2013-05-01", 
+                       "2013-06-01", "2013-07-01", "2013-08-01", "2013-09-01", "2013-10-01",
+                       "2013-11-01", "2013-12-01", "2014-01-01"))
+days2013 <- julian.Date(year_2013, origin = as.Date("2013-01-01"))
+
+
+
+year_start2013 <- as.data.frame(table(factor(cut(growth.2013$Start2013, breaks=days2013, labels = FALSE))))
+
+#sequence of dates
+dates1 <- data.frame(Var1 = as.factor(seq(1,12,1)))
+
+#merging the ech to sequence of dates
+dfstart2013 <- merge(dates1, year_start2013, all.x = TRUE, by = 'Var1')
+#setting NA to zero
+dfstart2013$Freq[is.na(dfstart2013$Freq)] <- 0
+
+#round the percentages
+dfstart2013$perc <- round(100*dfstart2013$Freq/sum(dfstart2013$Freq))
+
+year_2014 <- as.Date(c("2014-01-01", "2014-02-01", "2014-03-01","2014-04-01", "2014-05-01", 
+                       "2014-06-01", "2014-07-01", "2014-08-01", "2014-09-01", "2014-10-01",
+                       "2014-11-01", "2014-12-01", "2015-01-01"))
+
+days2014 <- julian.Date(year_2014, origin = as.Date("2014-01-01"))
+
+
+
+year_start2014 <- as.data.frame(table(factor(cut(growth.2014$Start2014, breaks=days2014, labels = FALSE))))
+
+#sequence of dates
+dates2 <- data.frame(Var1 = as.factor(seq(1,12,1)))
+
+#merging the ech to sequence of dates
+dfstart2014 <- merge(dates2, year_start2014, all.x = TRUE, by = 'Var1')
+#setting NA to zero
+dfstart2014$Freq[is.na(dfstart2014$Freq)] <- 0
+
+#round the percentages
+dfstart2014$perc <- round(100*dfstart2014$Freq/sum(dfstart2014$Freq))
+
+
+
+plot1 <- ggplot(dfstart2013, aes(x=Var1, y=perc))  +
+  geom_bar(data = dfstart2013, stat='identity', colour = "green", fill = "green", alpha = 0.5, width = 0.75) + 
+  geom_bar(data = dfstart2014, stat='identity', colour = "red", fill = "red", alpha = 0.2, width = 0.75) +
+  coord_polar(start = 0) + scale_x_discrete(labels = month.abb) + 
+  scale_y_continuous(breaks = c(0, 25, 50, 75),labels = c("0%","25%", "50%", "75%"), limits=c(0, 100)) +
+  theme_minimal() + xlab("") + ylab("Frequency") +
+  theme(text = element_text(size = 15), axis.title = element_text(size = 20)) + 
+  ggtitle("(a)              Start") 
+
+
+plot1
+
+
+# Middle
+year_mid2013 <- as.data.frame(table(factor(cut(growth.2013$Middle2013, breaks=days2013, labels = FALSE))))
+
+#sequence of dates
+dates1 <- data.frame(Var1 = as.factor(seq(1,12,1)))
+
+#merging the ech to sequence of dates
+dfmid2013 <- merge(dates1, year_mid2013, all.x = TRUE, by = 'Var1')
+#setting NA to zero
+dfmid2013$Freq[is.na(dfmid2013$Freq)] <- 0
+
+#round the percentages
+dfmid2013$perc <- round(100*dfmid2013$Freq/sum(dfmid2013$Freq))
+
+#year_2014 <- as.Date(c("2014-01-01", "2014-02-01", "2014-03-01","2014-04-01", "2014-05-01", 
+#                       "2014-06-01", "2014-07-01", "2014-08-01", "2014-09-01", "2014-10-01",
+#                       "2014-11-01", "2014-12-01", "2015-01-01"))
+
+#days2014 <- julian.Date(year_2014, origin = as.Date("2014-01-01"))
+
+
+
+year_mid2014 <- as.data.frame(table(factor(cut(growth.2014$Middle2014, breaks=days2014, labels = FALSE))))
+
+#sequence of dates
+dates2 <- data.frame(Var1 = as.factor(seq(1,12,1)))
+
+#merging the ech to sequence of dates
+dfmid2014 <- merge(dates2, year_mid2014, all.x = TRUE, by = 'Var1')
+#setting NA to zero
+dfmid2014$Freq[is.na(dfmid2014$Freq)] <- 0
+
+#round the percentages
+dfmid2014$perc <- round(100*dfmid2014$Freq/sum(dfmid2014$Freq))
+
+plot2 <- ggplot(dfmid2013, aes(x=Var1, y=perc))  +
+  geom_bar(data = dfmid2013, stat='identity', colour = "green", fill = "green", alpha = 0.5, width = 0.75) + 
+  geom_bar(data = dfmid2014, stat='identity', colour = "red", fill = "red", alpha = 0.2, width = 0.75) +
+  coord_polar(start = 0) + scale_x_discrete(labels = month.abb) + 
+  scale_y_continuous(breaks = c(0, 25, 50, 75),labels = c("0%","25%", "50%", "75%"), limits=c(0, 100)) +
+  theme_minimal() + xlab("") + ylab("") +
+  theme(text = element_text(size = 15), #axis.title = element_text(size = 20),
+        axis.title.x    = element_blank(),
+        axis.title.y    = element_blank(),
+        strip.text      = element_blank()) +
+  ggtitle("(b)              Middle") 
+
+plot2
+
+
+# End
+year_end2013 <- as.data.frame(table(factor(cut(growth.2013$End2013, breaks=days2013, labels = FALSE))))
+
+#sequence of dates
+dates1 <- data.frame(Var1 = as.factor(seq(1,12,1)))
+
+#merging the ech to sequence of dates
+dfend2013 <- merge(dates1, year_end2013, all.x = TRUE, by = 'Var1')
+#setting NA to zero
+dfend2013$Freq[is.na(dfend2013$Freq)] <- 0
+
+#round the percentages
+dfend2013$perc <- round(100*dfend2013$Freq/sum(dfend2013$Freq))
+
+#year_2014 <- as.Date(c("2014-01-01", "2014-02-01", "2014-03-01","2014-04-01", "2014-05-01", 
+#                       "2014-06-01", "2014-07-01", "2014-08-01", "2014-09-01", "2014-10-01",
+#                       "2014-11-01", "2014-12-01", "2015-01-01"))
+
+#days2014 <- julian.Date(year_2014, origin = as.Date("2014-01-01"))
+
+
+
+year_end2014 <- as.data.frame(table(factor(cut(growth.2014$End2014, breaks=days2014, labels = FALSE))))
+
+#sequence of dates
+dates2 <- data.frame(Var1 = as.factor(seq(1,12,1)))
+
+#merging the ech to sequence of dates
+dfend2014 <- merge(dates2, year_end2014, all.x = TRUE, by = 'Var1')
+#setting NA to zero
+dfend2014$Freq[is.na(dfend2014$Freq)] <- 0
+
+#round the percentages
+dfend2014$perc <- round(100*dfend2014$Freq/sum(dfend2014$Freq))
+
+colors <- c("2013" = "green", "2014" = "red")
+
+plot3 <- ggplot(dfend2013, aes(x=Var1, y=perc))  +
+  geom_bar(data = dfend2013, stat='identity', colour = "green", fill = "green", alpha = 0.5, width = 0.75) + 
+  geom_bar(data = dfend2014, stat='identity', colour = "red", fill = "red", alpha = 0.2, width = 0.75) +
+  coord_polar(start = 0) + scale_x_discrete(labels = month.abb) + 
+  scale_y_continuous(breaks = c(0, 25, 50, 75),labels = c("0%","25%", "50%", "75%"), limits=c(0, 100)) +
+  theme_minimal() + xlab("") + ylab("") +
+  theme(text = element_text(size = 15), axis.title = element_text(size = 20),
+        axis.title.x    = element_blank(),
+        axis.title.y    = element_blank(),
+        strip.text      = element_blank()
+  )  + ggtitle("(c)               End") 
+
+
+plot3
+
+
+
+tiff(filename="Pheno_metrics.tif", width = 7000, height = 4000, res=600) 
+
+grid.newpage()
+grid.draw(cbind(ggplotGrob(plot1), ggplotGrob(plot2), ggplotGrob(plot3), size = "last"))
+
+dev.off()
